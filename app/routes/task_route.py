@@ -8,7 +8,7 @@ class CreateTaskPayload(TypedDict):
     title: str
     description: str
 
-def create_task(task_id_control: int, tasks: List[Tasks]):    
+def create_task(task_id_control: int, tasks: List[Tasks]):
     data: CreateTaskPayload = request.get_json()
     
     new_task = Tasks({ 
@@ -17,8 +17,12 @@ def create_task(task_id_control: int, tasks: List[Tasks]):
                       "description": data.get("description") 
                     })
     
-    task_id_control +=1
-    
     tasks.append(new_task)
     
     return jsonify({"message": "New task created successfully"})
+
+def get_tasks(tasks: List[Tasks]):
+    tasks_response: List[dict]  = list(map(lambda task: { 'id': task.id, "title": task.title, 'description': task.description,  }, tasks))
+
+    return jsonify({ "tasks": tasks_response, "total_tasks": len(tasks) })
+    
