@@ -14,7 +14,8 @@ def create_task(task_id_control: int, tasks: List[Tasks]):
     new_task = Tasks({ 
                       "id": task_id_control, 
                       "title": data.get("title"), 
-                      "description": data.get("description") 
+                      "description": data.get("description") ,
+                      "is_completed": False
                     })
     
     tasks.append(new_task)
@@ -22,7 +23,7 @@ def create_task(task_id_control: int, tasks: List[Tasks]):
     return jsonify({"message": "New task created successfully"})
 
 def get_tasks(tasks: List[Tasks]):
-    tasks_response: List[dict]  = list(map(lambda task: { 'id': task.id, "title": task.title, 'description': task.description,  }, tasks))
+    tasks_List: List[dict]  = list(map(lambda task: task.to_dict(), tasks))
 
-    return jsonify({ "tasks": tasks_response, "total_tasks": len(tasks) })
+    return jsonify({ "tasks": tasks_List, "total_tasks": len(tasks) })
     

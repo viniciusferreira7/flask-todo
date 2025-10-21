@@ -68,6 +68,9 @@ def get_tasks_route():
                   description:
                     type: string
                     example: "Learn how to build APIs with Flask"
+                  is_completed:
+                    type: boolean
+                    example: false
             total_tasks:
               type: integer
               example: 5
