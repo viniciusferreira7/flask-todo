@@ -1,5 +1,6 @@
 from typing import TypedDict, List
 from flask import request, jsonify
+from schemas.task import Task
 
 from models.task import Tasks
 
@@ -23,7 +24,15 @@ def create_task(task_id_control: int, tasks: List[Tasks]):
     return jsonify({"message": "New task created successfully"})
 
 def get_tasks(tasks: List[Tasks]):
-    tasks_List: List[dict]  = list(map(lambda task: task.to_dict(), tasks))
-
+    tasks_List: List[dict]  = [task.to_dict() for task in tasks]
     return jsonify({ "tasks": tasks_List, "total_tasks": len(tasks) })
+
+def get_task(id: int, tasks: List[Tasks]):
+    task: Task | None
     
+    for item in tasks:
+        if item.id == id:
+            task = item
+            return jsonify({ "task": task.to_dict() })
+                
+    return jsonify({"message": "Task not found"}), 404   

@@ -1,4 +1,3 @@
-from typing import Any
 from schemas.task import Task
 
 class Tasks:

@@ -2,7 +2,7 @@ from typing import List
 from flask import Flask
 from flasgger import Swagger
 
-from routes.task_route import create_task, get_tasks
+from routes.task_route import create_task, get_tasks, get_task
 
 app = Flask(__name__)
 
@@ -77,6 +77,43 @@ def get_tasks_route():
     """
     return get_tasks(tasks)
 
+@app.route("/tasks/<int:id>", methods=["GET"])
+def get_task_route(id: int):
+  """
+  Get a specific task by ID
+  ---
+  parameters:
+    - name: id
+      in: path
+      type: integer
+      required: true
+      example: 1
+  responses:
+    200:
+      description: Task retrieved successfully
+      schema:
+        type: object
+        properties:
+          task:
+            type: object
+            properties:
+              id:
+                type: integer
+                example: 1
+              title:
+                type: string
+                example: "Study Flask"
+              description:
+                type: string
+                example: "Learn how to build APIs with Flask"
+              is_completed:
+                type: boolean
+                example: false
+    404:
+      description: Task not found
+  """
+  return get_task(id, tasks)
+  
   
 
 if __name__ == "__main__":
