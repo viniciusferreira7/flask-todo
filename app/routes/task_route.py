@@ -36,3 +36,22 @@ def get_task(id: int, tasks: List[Tasks]):
             return jsonify({ "task": task.to_dict() })
                 
     return jsonify({"message": "Task not found"}), 404   
+
+
+class UpdateTaskPayload(TypedDict):
+    title: str
+    description: str
+    is_completed: bool
+
+def update_task(id: int, tasks: List[Tasks]):
+    data: UpdateTaskPayload = request.get_json()
+    
+    for item in tasks:
+        if item.id == id:
+            item.title = data.get("title")
+            item.description = data.get("description")
+            item.is_completed = data.get("is_completed")
+            
+            return jsonify(), 204
+                
+    return jsonify({"message": "Task not found"}), 404   

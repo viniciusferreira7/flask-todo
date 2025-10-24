@@ -119,7 +119,6 @@ The interactive documentation (Swagger) will be at: `http://localhost:5001/apido
 
 - [ ] Update tasks (PUT)
 - [ ] Delete tasks (DELETE)
-- [ ] Implement persistent database
 
 ## Development Notes
 
