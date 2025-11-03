@@ -50,8 +50,26 @@ def update_task(id: int, tasks: List[Tasks]):
         if item.id == id:
             item.title = data.get("title")
             item.description = data.get("description")
-            item.is_completed = data.get("is_completed")
+            item.is_completed = bool(data.get("is_completed"))
             
             return jsonify(), 204
                 
     return jsonify({"message": "Task not found"}), 404   
+
+def delete_task(id: int, tasks: List[Tasks]):
+    task: Task | None = None
+    
+    for item in tasks:
+        if item.id == id:
+            task = item
+            break
+    
+    if not task:
+        return jsonify({ "message": "Not found" }), 404
+
+    tasks.remove(task)
+    
+    return jsonify() ,204
+        
+    
+    

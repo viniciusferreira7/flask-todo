@@ -2,7 +2,7 @@ from typing import List
 from flask import Flask
 from flasgger import Swagger
 
-from routes.task_route import create_task, get_tasks, get_task, update_task
+from routes.task_route import create_task, get_tasks, get_task, update_task, delete_task
 
 app = Flask(__name__)
 
@@ -114,7 +114,7 @@ def get_task_route(id: int):
   """
   return get_task(id, tasks)
   
-@app.route("/tasks/<int:id>", methods=["PUT"])
+@app.route("/tasks/<int:id>", methods=["PATCH"])
 def update_task_route(id: int):
   """
   Update a specific task by ID
@@ -147,6 +147,25 @@ def update_task_route(id: int):
       description: Task not found
   """
   return update_task(id, tasks)
+
+@app.route("/tasks/<int:id>", methods=["DELETE"])
+def delete_task_route(id: int):
+  """
+  Delete a specific task by ID
+  ---
+  parameters:
+    - name: id
+      in: path
+      type: integer
+      required: true
+      example: 1
+  responses:
+    204:
+      description: Task deleted successfully
+    404:
+      description: Task not found
+  """
+  return delete_task(id, tasks)
 
 if __name__ == "__main__":
     app.run(debug=True, host="localhost", port=5001)
