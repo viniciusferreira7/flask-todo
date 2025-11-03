@@ -12,7 +12,10 @@ A simple task management API built with Flask. This is a learning project to exp
 
 - ✅ Create new tasks
 - ✅ List all tasks
-- 📋 Automatic documentation with Swagger
+- ✅ Get a specific task by ID
+- ✅ Update tasks (PATCH)
+- ✅ Delete tasks (DELETE)
+- 📋 Automatic documentation with Swagger/OpenAPI
 
 ## Technologies Used
 
@@ -108,17 +111,67 @@ The interactive documentation (Swagger) will be at: `http://localhost:5001/apido
     {
       "id": 1,
       "title": "Study Flask",
-      "description": "Learn how to build APIs with Flask"
+      "description": "Learn how to build APIs with Flask",
+      "is_completed": false
     }
   ],
   "total_tasks": 1
 }
 ```
 
-## Next Steps (Planned)
+### Get Task by ID
+**GET** `/tasks/<id>`
 
-- [ ] Update tasks (PUT)
-- [ ] Delete tasks (DELETE)
+**Response (200)**
+```json
+{
+  "task": {
+    "id": 1,
+    "title": "Study Flask",
+    "description": "Learn how to build APIs with Flask",
+    "is_completed": false
+  }
+}
+```
+
+**Response (404)**
+```json
+{
+  "message": "Task not found"
+}
+```
+
+### Update Task
+**PATCH** `/tasks/<id>`
+
+```json
+{
+  "title": "Study Flask Advanced",
+  "description": "Learn advanced Flask concepts and best practices",
+  "is_completed": false
+}
+```
+
+**Response (204)** - No content
+
+**Response (404)**
+```json
+{
+  "message": "Task not found"
+}
+```
+
+### Delete Task
+**DELETE** `/tasks/<id>`
+
+**Response (204)** - No content
+
+**Response (404)**
+```json
+{
+  "message": "Not found"
+}
+```
 
 ## Development Notes
 
