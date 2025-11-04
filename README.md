@@ -20,11 +20,10 @@ A simple task management API built with Flask. This is a learning project to exp
 ## Technologies Used
 
 - **Python 3.x**
-- **Flask** - Web framework
-- **Flasgger** - Swagger/OpenAPI integration
-- **Flask-SQLAlchemy** - ORM for database
-- **Flask-CORS** - CORS support
-- **Werkzeug** - Flask utilities
+- **Flask 2.3.0** - Web framework
+- **Werkzeug 2.3.0** - WSGI utilities
+- **Requests 2.31.0** - HTTP library
+- **Pytest 7.4.3** - Testing framework
 
 ## Project Structure
 

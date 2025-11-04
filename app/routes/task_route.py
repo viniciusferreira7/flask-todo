@@ -21,7 +21,7 @@ def create_task(task_id_control: int, tasks: List[Tasks]):
     
     tasks.append(new_task)
     
-    return jsonify({"message": "New task created successfully"})
+    return jsonify({"message": "New task created successfully", "id": task_id_control}), 201
 
 def get_tasks(tasks: List[Tasks]):
     tasks_List: List[dict]  = [task.to_dict() for task in tasks]
