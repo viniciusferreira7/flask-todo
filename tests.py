@@ -52,15 +52,29 @@ def test_get_tasks():
     assert "total_tasks" in response_json
 
 def test_get_task():
-    createdTaskResponse = create_task("Buy groceries", "Buy milk, eggs, and bread")
+    created_task_response = create_task("Buy groceries", "Buy milk, eggs, and bread")
 
-    task_id = createdTaskResponse.json()['id']
+    task_id = created_task_response.json()['id']
     
-    print(task_id)
-
     response = requests.get(f"{BASE_URL}/tasks/{task_id}")
 
     response_json = response.json()
     
     assert response.status_code == 200
     assert "task" in response_json
+    assert task_id == response_json["task"]["id"]
+
+def test_update_task():
+    created_task_response = create_task("Buy groceries", "Buy milk, eggs, and bread")
+
+    task_id = created_task_response.json()['id']
+    
+    updated_task: Task = {
+        "title": "Updated title",
+        "description": "updated description",
+        "is_completed": True
+    }
+
+    response = requests.patch(f"{BASE_URL}/tasks/{task_id}", json=updated_task)
+
+    assert response.status_code == 204
