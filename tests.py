@@ -78,3 +78,16 @@ def test_update_task():
     response = requests.patch(f"{BASE_URL}/tasks/{task_id}", json=updated_task)
 
     assert response.status_code == 204
+    
+def test_delete_task():
+    createdTaskResponse = create_task()
+    
+    task_id: str = createdTaskResponse.json()["id"] 
+    
+    response = requests.delete(f"{BASE_URL}/tasks/{task_id}")
+    
+    tasks.remove(task_id)
+    
+    assert response.status_code == 204
+    
+    
